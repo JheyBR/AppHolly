@@ -1,25 +1,27 @@
 import requests
+
 import json
+
 import asyncio
+
 import time
+
 from datetime import datetime
 
+
+
 # --- CONFIGURACIÓN ---
-GOOGLE_API_KEY = "AIzaSyCcsgGy-ayxyd4AwmXhBqWZOHnid_LwZ5I" 
+
+GOOGLE_API_KEY = "AIzaSyCcsgGy-ayxyd4AwmXhBqWZOHnid_LwZ5I"
 HEYGEN_API_KEY = "sk_V2_hgu_kCPT1mZe417_vnGyety07VX2AqhnYYBMhRDWfJj3uGrD"
-GEMINI_MODEL = "gemini-3-flash-preview"
+GEMINI_MODEL = "gemini-2.5-flash-lite"
 AVATAR_ID_PROPIO = "368cafb28ad14a2d9a1d96569b314ecc"
 URL_IMAGEN_FONDO = "https://images.unsplash.com/photo-1465848059293-208e11dfea17?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-HEADERS = {
-    'X-Api-Key': HEYGEN_API_KEY,
-    'Content-Type': 'application/json'
-}
-VIDEO_ID = None  # Variable global para almacenar el ID del video generado
 
 def obtener_datos_liturgicos():
     fecha_hoy = datetime.now().strftime("%d de %B de %Y")
     print(f"\n--- 1. Consultando Liturgia para hoy ({fecha_hoy}) ---")
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GOOGLE_API_KEY}" 
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GOOGLE_API_KEY}"
     prompt_query = (
         f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
         "1. Lee el evangelio del dia completo con tono solemne y espiritual "
@@ -38,29 +40,32 @@ def obtener_datos_liturgicos():
         print("\n --- Respuesta de Gemini  ---")
         print(f" Guion: {parsed_json.get('guion')}")
         print("-------------------------------\n")
-        
+     
+
         return parsed_json
-        
+       
     except Exception as e:
         print(f" Error: consultando a Gemini: {e}")
         return None
 
-    
+
+
 
 def generar_video_heygen(contenido_json):
     print(f"--- 2. Enviando Paquete a HeyGen (ID: {AVATAR_ID_PROPIO}) ---")
-    url = "https://api.heygen.com/v2/video/generate" 
-    
+    url = "https://api.heygen.com/v2/video/generate"
+ 
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
-        "x-api-key": HEYGEN_API_KEY 
+        "x-api-key": HEYGEN_API_KEY
     }
-    
-    # NOTA: Para cambiar el fondo dinámicamente en 'talking_photo', 
+
+   
+    # NOTA: Para cambiar el fondo dinámicamente en 'talking_photo',
     # la API generalmente requiere una URL de imagen, no una descripción de texto.
     # Por ahora, enviaremos solo el guion. Si tuvieras una URL de imagen, iría en 'background'.
-    
+
     payload = {
         "video_inputs": [
             {
@@ -82,12 +87,12 @@ def generar_video_heygen(contenido_json):
         },
         "test": True
     }
-    
+  
+
     try:
-        res = requests.post(url, json=payload, headers=headers) 
-        
+        res = requests.post(url, json=payload, headers=headers)
         if res.status_code == 200:
-            video_id = res.json()["data"]["video_id"] 
+            video_id = res.json()["data"]["video_id"]
             print(f"¡ÉXITO! Video solicitado. ID: {video_id}")
             return video_id
         else:
@@ -97,61 +102,65 @@ def generar_video_heygen(contenido_json):
         print(f" Error de conexión con HeyGen: {e}")
         return None
 
-def descargar_video_heygen(video_id):
-    status_url = f"https://api.heygen.com/v2/video_status?video_id={video_id}"
-    
-    print(f"Verificando estado del video {video_id}...")
 
+
+def descargar_video_heygen(video_id):
+    status_url = f"https://app.heygen.com/videos/{video_id}"
+    headers = {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "x-api-key": HEYGEN_API_KEY
+    }
+
+    print(f"Verificando estado del video {video_id}...")
     while True:
         # 2. Consultar el estado
-        response = requests.get(status_url, headers=HEADERS)
-        
+        response = requests.get(status_url, headers=headers)
+      
         if response.status_code != 200:
             print(f"Error en la API: {response.text}")  
             return
-
         data = response.json()
         status = data.get('data', {}).get('status')
-        
+      
         # 3. Evaluar el estado
         if status == 'completed':
             video_url = data['data']['video_url']
             print(f"¡Video completado! URL: {video_url}")
-            
+          
             # 4. Descargar el archivo
             print("Iniciando descarga...")
             video_content = requests.get(video_url).content
-            
+           
             nombre_archivo = f"{video_id}.mp4"
             with open(nombre_archivo, 'wb') as f:
                 f.write(video_content)
-            
+
             print(f"Video guardado exitosamente como: {nombre_archivo}")
             break
-            
+          
         elif status == 'failed':
             error = data['data'].get('error')
             print(f"La generación del video falló: {error}")
             break
-            
+          
         elif status in ['pending', 'processing']:
             print("El video se está procesando. Esperando 60 segundos...")
             time.sleep(60)  # Esperar antes de volver a consultar (Polling)
-        
+     
         else:
             print(f"Estado desconocido: {status}")
             break
-
-# Ejecutar la función
 
 
 async def main():
     datos = obtener_datos_liturgicos()
     if datos:
-        generar_video_heygen(datos)
+        
+        VIDEO_ID = generar_video_heygen(datos)
+        descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
     else:
         print("No se pudo obtener el guion, abortando generación de video.")    
 
 if __name__ == "__main__":
-    VIDEO_ID = asyncio.run(main())  
-    descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
+    asyncio.run(main())  
