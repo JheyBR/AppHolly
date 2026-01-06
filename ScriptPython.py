@@ -4,10 +4,10 @@ import asyncio
 import time
 from datetime import datetime
 
-GOOGLE_API_KEY = "AIzaSyAhGB3YefNWEE79h2F9Xlb8H8O64eivJmw"
+GOOGLE_API_KEY = "AIzaSyCOrIHTuopa9VdER6QcP4PWUTpwEg9k1ls"
 HEYGEN_API_KEY = "sk_V2_hgu_ktVynbBywX2_KyHK1Jw3DcZQtyGNLYNl31zltP1tY4xn"
 GEMINI_MODEL = "gemini-2.5-flash"
-AVATAR_ID_PROPIO = "9bb9494f46aa41c995a77de99280bda9" 
+#AVATAR_ID_PROPIO = "9bb9494f46aa41c995a77de99280bda9" 
 
 if not GOOGLE_API_KEY or not HEYGEN_API_KEY:
     raise ValueError("¡Error! Faltan las API KEYS en el archivo .env")
@@ -26,6 +26,16 @@ def obtener_datos_liturgicos():
         "Ejemplo: {\"guion\": \"Lectura del santo evangelio...\"}"
     )
 
+    prompt_primera_lectura = (
+        f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
+        "Obtén la primera lectura de la eucaristia del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
+        "Incluye únicamente el texto íntegro de la primera lectura, sin interpretación ni resumen. "
+        #"1. Lee el evangelio del dia completo con tono solemne y espiritual "
+        "Responde ESTRICTAMENTE en este formato JSON, sin markdown extra: "
+        #'{"guion": "texto hablado aquí"}'
+        "Ejemplo: {\"guion\": \"primera Lectura del libro de...\"}"
+    )
+
     try:
         res = requests.post(url, json={"contents": [{"parts": [{"text": prompt_query}]}]})
         res.raise_for_status() # Verifica si hubo error HTTP
@@ -34,17 +44,29 @@ def obtener_datos_liturgicos():
         # Limpieza del JSON (quita ```json y ``` si Gemini los pone)
         clean_json_text = raw_text.replace('```json', '').replace('```', '').strip()
         parsed_json = json.loads(clean_json_text)
-        print("\n --- Respuesta de Gemini  ---")
+        print("\n --- Respuesta de Gemini Evangelio ---")
         print(f" Guion: {parsed_json.get('guion')}")
         print("-------------------------------\n")
-        return parsed_json
+        time.sleep(20)
+
+        res2 = requests.post(url, json={"contents": [{"parts": [{"text": prompt_primera_lectura}]}]})
+        res2.raise_for_status() # Verifica si hubo error HTTP
+        data2 = res2.json()
+        raw_text2 = data2['candidates'][0]['content']['parts'][0]['text']
+        # Limpieza del JSON (quita ```json y ``` si Gemini los pone)
+        clean_json_text2 = raw_text2.replace('```json', '').replace('```', '').strip()
+        parsed_json_pl = json.loads(clean_json_text2)
+        print("\n --- Respuesta de Gemini Primera Lectura ---")
+        print(f" Guion: {parsed_json_pl.get('guion')}")
+        print("-------------------------------\n")
+        return parsed_json, parsed_json_pl
        
     except Exception as e:
         print(f" Error: consultando a Gemini: {e}")
         return None
 
-def generar_video_heygen(contenido_json):
-    print(f"--- 2. Enviando Paquete a HeyGen (AVATAR ID: {AVATAR_ID_PROPIO}) ---")
+def generar_video_heygen(contenido_json, avatar_id, voz_id):
+    print(f"--- 2. Enviando Paquete a HeyGen (AVATAR ID: {avatar_id}) ---")
     url = "https://api.heygen.com/v2/video/generate"
  
     headers = {
@@ -62,7 +84,7 @@ def generar_video_heygen(contenido_json):
             {
                 "character": {
                     "type": "talking_photo",
-                    "talking_photo_id": AVATAR_ID_PROPIO,
+                    "talking_photo_id": avatar_id,
                     "scale": 1,
                     "avatar_style": "normal",
                     "talking_style": "stable"
@@ -70,7 +92,7 @@ def generar_video_heygen(contenido_json):
                 "voice": {
                     "type": "text",
                     "input_text": contenido_json["guion"], # Usamos el guion extraído
-                    "voice_id": "835561d576e04cb188580b4ada8dda5f"
+                    "voice_id": voz_id
                 }
             }
         ],
@@ -146,14 +168,21 @@ def descargar_video_heygen(video_id):
 
 
 async def main():
-    datos = obtener_datos_liturgicos()
-    if datos:        
-        VIDEO_ID = generar_video_heygen(datos)
-        if VIDEO_ID and VIDEO_ID != "None":
-            time.sleep(20)
-            descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
-        else:
-            print("No se pudo obtener el VIDEO_ID, abortando descarga de video.")
+    #datos_liturgicos = obtener_datos_liturgicos()
+    parsed_json, parsed_json_pl = obtener_datos_liturgicos()
+    configuraciones = [
+        (parsed_json, "9bb9494f46aa41c995a77de99280bda9", "835561d576e04cb188580b4ada8dda5f"),
+        (parsed_json_pl, "35c932d4d5834a9795e796c61a8aabcb", "ebca2bed4c42439280b8885732637f32")
+    ]
+    #if datos_liturgicos:
+    if parsed_json and parsed_json_pl:
+        for contenido_json, avatar_id, voz_id in configuraciones:        
+            VIDEO_ID = generar_video_heygen(contenido_json, avatar_id, voz_id)
+            if VIDEO_ID and VIDEO_ID != "None":
+                time.sleep(20)
+                descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
+            else:
+                print("No se pudo obtener el VIDEO_ID, abortando descarga de video.")
     else:
         print("No se pudo obtener el guion, abortando generación de video.")    
 
