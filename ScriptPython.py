@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 
 GOOGLE_API_KEY = "AIzaSyAhGB3YefNWEE79h2F9Xlb8H8O64eivJmw"
-HEYGEN_API_KEY = "sk_V2_hgu_kCPT1mZe417_vnGyety07VX2AqhnYYBMhRDWfJj3uGrD"
+HEYGEN_API_KEY = "sk_V2_hgu_ktVynbBywX2_KyHK1Jw3DcZQtyGNLYNl31zltP1tY4xn"
 GEMINI_MODEL = "gemini-2.5-flash"
 AVATAR_ID_PROPIO = "9bb9494f46aa41c995a77de99280bda9" 
 
