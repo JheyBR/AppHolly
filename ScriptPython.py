@@ -44,7 +44,7 @@ def obtener_datos_liturgicos():
         return None
 
 def generar_video_heygen(contenido_json):
-    print(f"--- 2. Enviando Paquete a HeyGen (ID: {AVATAR_ID_PROPIO}) ---")
+    print(f"--- 2. Enviando Paquete a HeyGen (AVATAR ID: {AVATAR_ID_PROPIO}) ---")
     url = "https://api.heygen.com/v2/video/generate"
  
     headers = {
@@ -144,9 +144,12 @@ async def main():
     datos = obtener_datos_liturgicos()
     if datos:        
         VIDEO_ID = generar_video_heygen(datos)
-        time.sleep(20)
-        #VIDEO_ID = "f692954b2e2d4462bed949d00ac28cf3"
-        descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
+        if (VIDEO_ID != "None"):
+            time.sleep(20)
+            #VIDEO_ID = "f692954b2e2d4462bed949d00ac28cf3"
+            descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
+        else:
+            print("No se pudo obtener el VIDEO_ID, abortando descarga de video.") 
     else:
         print("No se pudo obtener el guion, abortando generación de video.")    
 
