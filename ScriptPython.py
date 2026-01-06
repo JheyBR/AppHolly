@@ -144,6 +144,7 @@ async def main():
     datos = obtener_datos_liturgicos()
     if datos:        
         VIDEO_ID = generar_video_heygen(datos)
+        time.sleep(20)
         #VIDEO_ID = "f692954b2e2d4462bed949d00ac28cf3"
         descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
     else:
