@@ -85,8 +85,13 @@ def generar_video_heygen(contenido_json):
             print(f"¡ÉXITO! Video solicitado. ID: {video_id}")
             return video_id
         else:
-            print(f" Error en HeyGen: {res.text}")
-            return None
+            respuesta_json = res.json()
+            if respuesta_json.get("error") and respuesta_json["error"].get("code") == "trial_video_limit_exceeded":
+                print("Has alcanzado el límite diario de videos en HeyGen. Intenta nuevamente mañana o adquiere una suscripción.")
+                return None
+            else:
+                print(f" Error en HeyGen: {res.text}")
+                return None
     except Exception as e:
         print(f" Error de conexión con HeyGen: {e}")
         return None
@@ -144,12 +149,11 @@ async def main():
     datos = obtener_datos_liturgicos()
     if datos:        
         VIDEO_ID = generar_video_heygen(datos)
-        if (VIDEO_ID != "None"):
+        if VIDEO_ID and VIDEO_ID != "None":
             time.sleep(20)
-            #VIDEO_ID = "f692954b2e2d4462bed949d00ac28cf3"
             descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
         else:
-            print("No se pudo obtener el VIDEO_ID, abortando descarga de video.") 
+            print("No se pudo obtener el VIDEO_ID, abortando descarga de video.")
     else:
         print("No se pudo obtener el guion, abortando generación de video.")    
 
