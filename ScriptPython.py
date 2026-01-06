@@ -1,22 +1,16 @@
 import requests
-
 import json
-
 import asyncio
-
 import time
-
 from datetime import datetime
 
-
-
-# --- CONFIGURACIÓN ---
-
-GOOGLE_API_KEY = "AIzaSyCcsgGy-ayxyd4AwmXhBqWZOHnid_LwZ5I"
+GOOGLE_API_KEY = "AIzaSyAhGB3YefNWEE79h2F9Xlb8H8O64eivJmw"
 HEYGEN_API_KEY = "sk_V2_hgu_kCPT1mZe417_vnGyety07VX2AqhnYYBMhRDWfJj3uGrD"
-GEMINI_MODEL = "gemini-2.5-flash-lite"
-AVATAR_ID_PROPIO = "368cafb28ad14a2d9a1d96569b314ecc"
-URL_IMAGEN_FONDO = "https://images.unsplash.com/photo-1465848059293-208e11dfea17?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+GEMINI_MODEL = "gemini-2.5-flash"
+AVATAR_ID_PROPIO = "9bb9494f46aa41c995a77de99280bda9" 
+
+if not GOOGLE_API_KEY or not HEYGEN_API_KEY:
+    raise ValueError("¡Error! Faltan las API KEYS en el archivo .env")
 
 def obtener_datos_liturgicos():
     fecha_hoy = datetime.now().strftime("%d de %B de %Y")
@@ -24,9 +18,12 @@ def obtener_datos_liturgicos():
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GOOGLE_API_KEY}"
     prompt_query = (
         f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
-        "1. Lee el evangelio del dia completo con tono solemne y espiritual "
+        "Obtén el evangelio del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
+        "Incluye únicamente el texto íntegro del evangelio, sin interpretación ni resumen. "
+        #"1. Lee el evangelio del dia completo con tono solemne y espiritual "
         "Responde ESTRICTAMENTE en este formato JSON, sin markdown extra: "
-        '{"guion": "texto hablado aquí"}'
+        #'{"guion": "texto hablado aquí"}'
+        "Ejemplo: {\"guion\": \"Lectura del santo evangelio...\"}"
     )
 
     try:
@@ -40,16 +37,11 @@ def obtener_datos_liturgicos():
         print("\n --- Respuesta de Gemini  ---")
         print(f" Guion: {parsed_json.get('guion')}")
         print("-------------------------------\n")
-     
-
         return parsed_json
        
     except Exception as e:
         print(f" Error: consultando a Gemini: {e}")
         return None
-
-
-
 
 def generar_video_heygen(contenido_json):
     print(f"--- 2. Enviando Paquete a HeyGen (ID: {AVATAR_ID_PROPIO}) ---")
@@ -61,7 +53,6 @@ def generar_video_heygen(contenido_json):
         "x-api-key": HEYGEN_API_KEY
     }
 
-   
     # NOTA: Para cambiar el fondo dinámicamente en 'talking_photo',
     # la API generalmente requiere una URL de imagen, no una descripción de texto.
     # Por ahora, enviaremos solo el guion. Si tuvieras una URL de imagen, iría en 'background'.
@@ -71,24 +62,22 @@ def generar_video_heygen(contenido_json):
             {
                 "character": {
                     "type": "talking_photo",
-                    "talking_photo_id": AVATAR_ID_PROPIO
+                    "talking_photo_id": AVATAR_ID_PROPIO,
+                    "scale": 1,
+                    "avatar_style": "normal",
+                    "talking_style": "stable"
                 },
                 "voice": {
                     "type": "text",
                     "input_text": contenido_json["guion"], # Usamos el guion extraído
-                    "voice_id": "4f0b1c9da53e47d7a045c238b87303c2"
+                    "voice_id": "835561d576e04cb188580b4ada8dda5f"
                 }
             }
         ],
         "dimension": {"width": 1280, "height": 720},
-        "background": {
-            "type": "image",
-            "url": URL_IMAGEN_FONDO
-        },
         "test": True
     }
   
-
     try:
         res = requests.post(url, json=payload, headers=headers)
         if res.status_code == 200:
@@ -102,10 +91,8 @@ def generar_video_heygen(contenido_json):
         print(f" Error de conexión con HeyGen: {e}")
         return None
 
-
-
 def descargar_video_heygen(video_id):
-    status_url = f"https://app.heygen.com/videos/{video_id}"
+    status_url = f"https://api.heygen.com/v1/video_status.get?video_id={video_id}"
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
@@ -155,9 +142,9 @@ def descargar_video_heygen(video_id):
 
 async def main():
     datos = obtener_datos_liturgicos()
-    if datos:
-        
+    if datos:        
         VIDEO_ID = generar_video_heygen(datos)
+        #VIDEO_ID = "f692954b2e2d4462bed949d00ac28cf3"
         descargar_video_heygen(VIDEO_ID)  # Reemplaza con el ID real del video generado
     else:
         print("No se pudo obtener el guion, abortando generación de video.")    
