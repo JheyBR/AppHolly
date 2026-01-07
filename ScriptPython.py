@@ -7,16 +7,36 @@ from datetime import datetime
 GOOGLE_API_KEY = "AIzaSyCOrIHTuopa9VdER6QcP4PWUTpwEg9k1ls"
 HEYGEN_API_KEY = "sk_V2_hgu_ktVynbBywX2_KyHK1Jw3DcZQtyGNLYNl31zltP1tY4xn"
 GEMINI_MODEL = "gemini-2.5-flash"
-#AVATAR_ID_PROPIO = "9bb9494f46aa41c995a77de99280bda9" 
+URL_GEMINI = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GOOGLE_API_KEY}"
 
 if not GOOGLE_API_KEY or not HEYGEN_API_KEY:
     raise ValueError("¡Error! Faltan las API KEYS en el archivo .env")
 
+def consultar_gemini(prompt, url):
+    try:
+        res = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]})
+        res.raise_for_status()
+        data = res.json()
+        raw_text = data['candidates'][0]['content']['parts'][0]['text']
+        #print(f"\n--- Respuesta cruda de Gemini ---\n{raw_text}\n-------------------------------\n")
+        clean_json_text = raw_text.replace('```json', '').replace('```', '').strip()
+        try:
+            parsed_json = json.loads(clean_json_text)
+        except Exception as e:
+            print(f"Error al parsear JSON: {e}")
+            parsed_json = {}
+        print(f"\n --- Respuesta de Gemini ---\n Guion: {parsed_json.get('guion')}\n-------------------------------\n")
+        time.sleep(5)
+        return parsed_json
+    except Exception as e:
+        print(f" Error consultando a Gemini: {e}")
+        return None
+
 def obtener_datos_liturgicos():
     fecha_hoy = datetime.now().strftime("%d de %B de %Y")
-    print(f"\n--- 1. Consultando Liturgia para hoy ({fecha_hoy}) ---")
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GOOGLE_API_KEY}"
-    prompt_query = (
+    print(f"\n--- 1. Consultando Eucaristia para hoy ({fecha_hoy}) ---")
+    
+    prompt_evangelio = (
         f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
         "Obtén el evangelio del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
         "Incluye únicamente el texto íntegro del evangelio, sin interpretación ni resumen. "
@@ -30,36 +50,32 @@ def obtener_datos_liturgicos():
         f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
         "Obtén la primera lectura de la eucaristia del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
         "Incluye únicamente el texto íntegro de la primera lectura, sin interpretación ni resumen. "
-        #"1. Lee el evangelio del dia completo con tono solemne y espiritual "
         "Responde ESTRICTAMENTE en este formato JSON, sin markdown extra: "
-        #'{"guion": "texto hablado aquí"}'
         "Ejemplo: {\"guion\": \"primera Lectura del libro de...\"}"
     )
 
-    try:
-        res = requests.post(url, json={"contents": [{"parts": [{"text": prompt_query}]}]})
-        res.raise_for_status() # Verifica si hubo error HTTP
-        data = res.json()
-        raw_text = data['candidates'][0]['content']['parts'][0]['text']
-        # Limpieza del JSON (quita ```json y ``` si Gemini los pone)
-        clean_json_text = raw_text.replace('```json', '').replace('```', '').strip()
-        parsed_json = json.loads(clean_json_text)
-        print("\n --- Respuesta de Gemini Evangelio ---")
-        print(f" Guion: {parsed_json.get('guion')}")
-        print("-------------------------------\n")
-        time.sleep(20)
+    prompt_segunda_lectura = (
+        f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
+        "Obtén la segunda lectura de la eucaristia del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
+        "Incluye únicamente el texto íntegro de la segunda lectura, sin interpretación ni resumen. "
+        "Responde ESTRICTAMENTE en este formato JSON, sin markdown extra: "
+        "Ejemplo: {\"guion\": \"segunda Lectura del libro de...\"}"
+    )
 
-        res2 = requests.post(url, json={"contents": [{"parts": [{"text": prompt_primera_lectura}]}]})
-        res2.raise_for_status() # Verifica si hubo error HTTP
-        data2 = res2.json()
-        raw_text2 = data2['candidates'][0]['content']['parts'][0]['text']
-        # Limpieza del JSON (quita ```json y ``` si Gemini los pone)
-        clean_json_text2 = raw_text2.replace('```json', '').replace('```', '').strip()
-        parsed_json_pl = json.loads(clean_json_text2)
-        print("\n --- Respuesta de Gemini Primera Lectura ---")
-        print(f" Guion: {parsed_json_pl.get('guion')}")
-        print("-------------------------------\n")
-        return parsed_json, parsed_json_pl
+    prompt_salmo = (
+        f"Hoy es {fecha_hoy}. Eres un experto en liturgia católica. "
+        "Obtén el salmo de la eucaristia del día de hoy según la Biblia Católica, usando la traducción oficial completa y fiel. "
+        "Incluye únicamente el texto íntegro del salmo, sin interpretación ni resumen. "
+        "Responde ESTRICTAMENTE en este formato JSON, sin markdown extra: "
+        "Ejemplo: {\"guion\": \"Al Salmo respondemos todos:...\"}"
+    )
+    try:
+        prompts = [prompt_evangelio, prompt_primera_lectura, prompt_segunda_lectura, prompt_salmo]
+        resultados = []
+        for prompt in prompts:
+            resultado = consultar_gemini(prompt, URL_GEMINI)
+            resultados.append(resultado)
+        return resultados
        
     except Exception as e:
         print(f" Error: consultando a Gemini: {e}")
@@ -169,13 +185,16 @@ def descargar_video_heygen(video_id):
 
 async def main():
     #datos_liturgicos = obtener_datos_liturgicos()
-    parsed_json, parsed_json_pl = obtener_datos_liturgicos()
+    resultados = obtener_datos_liturgicos()
+    text_evangelio, text_pl, text_sl, text_sal = resultados
     configuraciones = [
-        (parsed_json, "9bb9494f46aa41c995a77de99280bda9", "835561d576e04cb188580b4ada8dda5f"),
-        (parsed_json_pl, "35c932d4d5834a9795e796c61a8aabcb", "ebca2bed4c42439280b8885732637f32")
+        (text_evangelio, "9bb9494f46aa41c995a77de99280bda9", "835561d576e04cb188580b4ada8dda5f"),
+        (text_pl, "35c932d4d5834a9795e796c61a8aabcb", "ebca2bed4c42439280b8885732637f32"),
+        (text_sl, "35c932d4d5834a9795e796c61a8aabcb", "ebca2bed4c42439280b8885732637f32"),
+        (text_sal, "35c932d4d5834a9795e796c61a8aabcb", "ebca2bed4c42439280b8885732637f32")
     ]
     #if datos_liturgicos:
-    if parsed_json and parsed_json_pl:
+    if text_evangelio and text_pl:
         for contenido_json, avatar_id, voz_id in configuraciones:        
             VIDEO_ID = generar_video_heygen(contenido_json, avatar_id, voz_id)
             if VIDEO_ID and VIDEO_ID != "None":
