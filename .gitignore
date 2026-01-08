@@ -1,0 +1,86 @@
+######################################
+# Python
+######################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+
+######################################
+# Entornos y secretos
+######################################
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.crt
+
+######################################
+# IDEs / Editores
+######################################
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+######################################
+# Logs y temporales
+######################################
+*.log
+logs/
+tmp/
+temp/
+
+######################################
+# Datos generados por la app (NO versionar)
+######################################
+
+# Audios generados por TTS (Gemini / futuros)
+data/assets/audio/
+data/assets/video/
+
+# Manifests diarios (se regeneran)
+data/manifests/manifest-*.json
+
+# PDFs descargados / raw data
+data/raw/
+data/raw/**/*.pdf
+
+######################################
+# Backups / copias accidentales
+######################################
+*~
+*.bak
+*.old
+*_copy.py
+*_backup.py
+
+######################################
+# Streamlit / cache runtime (si lo usas)
+######################################
+.streamlit/
+.streamlit/secrets.toml
+
+######################################
+# Notebooks (si luego pruebas cosas)
+######################################
+.ipynb_checkpoints/
+
+######################################
+# Sistema operativo
+######################################
+.DS_Store
+.AppleDouble
+.LSOverride

@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-01-07",
+  "language": "es-CO",
+  "title": "Misa Virtual",
+  "source": {
+    "provider": "dominicos.org",
+    "pdf_url": "https://www.dominicos.org/predicacion/pdf-evangelio-del-dia/7-1-2026.pdf"
+  },
+  "sections": [
+    {
+      "id": "welcome",
+      "type": "speech",
+      "title": "Bienvenida",
+      "source_url": "generated_by_gemini",
+      "text": "Queridos hermanos y hermanas, ¡qué alegría reunirnos hoy en esta Misa Virtual! Aunque estemos en diferentes lugares, nos une la misma fe y el amor a nuestro Señor. Abramos nuestros corazones para recibir la Palabra que nos alimenta y la gracia que nos fortalece. Que este encuentro sea un verdadero oasis espiritual en medio de nuestras vidas. Les doy la más cordial bienvenida a todos.",
+      "text_hash": "e014df75e8994d82aab6faede53ca526cbce21b0802678b548383f0a44536ace",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "7c3d7870b7fe8fb1943bdad91657f8c58c7f6531c7045dcfa330be4c2dcc02f0",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/welcome-7c3d7870b7fe8fb1943bdad91657f8c58c7f6531c7045dcfa330be4c2dcc02f0.wav",
+        "generated_at": "2026-01-07T21:03:20.626570Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "first_reading",
+      "type": "reading",
+      "title": "Primera lectura",
+      "source_url": "https://www.dominicos.org/predicacion/pdf-evangelio-del-dia/7-1-2026.pdf",
+      "text": "Lectura de la primera carta del apóstol san Juan 3, 22 – 4, 6\nQueridos hermanos:\nCuanto pidamos lo recibimos de él, porque guardamos sus mandamientos y hacemos lo que le agrada.\nY este es su mandamiento: que creamos en el nombre de su Hijo, Jesucristo, y que nos amemos unos a otros, tal como nos lo mandó. Quien guarda sus\nmandamientos permanece en Dios, y Dios en él; en esto conocemos que permanece en nosotros: por el Espíritu que nos dio.\nQueridos míos: no os fiéis de cualquier espíritu, sino examinad si los espíritus vienen de Dios, pues muchos falsos profetas han salido al mundo.\nEn esto podréis conocer el Espíritu de Dios: todo espíritu que confiesa a Jesucristo venido en carne es de Dios; y todo espíritu que no confiesa a Jesús no es de\nDios: es del Anticristo. El cual habéis oído que iba a venir; pues bien, ya está en el mundo.\nVosotros, hijos míos, sois de Dios y lo habéis vencido. Pues el que está en vosotros es más que el que está en el mundo. Ellos son del mundo; por eso hablan\nsegún el mundo y el mundo los escucha.\nNosotros somos de Dios. Quien conoce a Dios nos escucha, quien no es de Dios no nos escucha.\nEn esto conocemos el Espíritu de la verdad y el espíritu del error.",
+      "text_hash": "9331fb51a2ad00e7a311f4fcd2e745010db6063c4387829b3c1d3a181c6cccf9",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "LECTOR",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "788bf85441bd1bc14b31eee5a6b6bd3798651b4719179f38b83f861c015e8fe1",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/first_reading-788bf85441bd1bc14b31eee5a6b6bd3798651b4719179f38b83f861c015e8fe1.wav",
+        "generated_at": null
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "psalm",
+      "type": "psalm",
+      "title": "Salmo responsorial",
+      "source_url": "https://www.dominicos.org/predicacion/pdf-evangelio-del-dia/7-1-2026.pdf",
+      "text": "Salmo 2, 7-8. 10-12a R/. Te daré en herencia las naciones\nVoy a proclamar el decreto del Señor;\nél me ha dicho: «Tú eres mi Hijo:\nyo te he engendrado hoy.\nPídemelo:\nte daré en herencia las naciones;\nen posesión, los confines de la tierra». R/.\nY ahora, reyes, sed sensatos;\nescarmentad, los que regís la tierra:\nservid al Señor con temor,\nrendidle homenaje temblando. R/.",
+      "text_hash": "014a10172668e285694fc6fe9ed68a4aaf6aadba25957836e04db72ee003cbd6",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "LECTOR",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "9f5d578a50799ced2b050d12649e890647eca3401ce799c1ded62c48f5e283ce",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/psalm-9f5d578a50799ced2b050d12649e890647eca3401ce799c1ded62c48f5e283ce.wav",
+        "generated_at": "2026-01-07T21:04:04.456782Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "gospel",
+      "type": "gospel",
+      "title": "Evangelio",
+      "source_url": "https://www.dominicos.org/predicacion/pdf-evangelio-del-dia/7-1-2026.pdf",
+      "text": "Lectura del santo evangelio según san Mateo 4, 12-17. 23-25\nEn aquel tiempo, al enterarse Jesús de que habían arrestado a Juan se retiró a Galilea.\nDejando Nazaret se estableció en Cafarnaún, junto al mar, en el territorio de Zabulón y Neftalí, para que se cumpliera lo dicho por medio del profeta Isaías:\n«Tierra de Zabulón y tierra de Neftalí,\ncamino del mar, al otro lado del Jordán,\nGalilea de los gentiles.\nEl pueblo que habitaba en tinieblas\nvio una luz grande;\na los que habitaban en tierra y sombras de muerte,\nuna luz les brilló».\nDesde entonces comenzó Jesús a predicar diciendo:\n«Convertíos, porque está cerca el reino de los cielos».\nJesús recorría toda Galilea enseñando en sus sinagogas, proclamando el evangelio del reino y curando toda enfermedad y toda dolencia en el pueblo.\nSu fama se extendió por toda Siria y le traían todos los enfermos aquejados de toda clase de enfermedades y dolores, endemoniados, lunáticos y paralíticos. Y\nél los curó.\nY lo seguían multitudes venidas de Galilea, Decápolis, Jerusalén, Judea y Transjordania.",
+      "text_hash": "1eff1203d7b3643fd286dc44c279c2c83570195c30b618559ee8aafabc8db699",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "f296b4fffc327f3b6a61c0502247c59ddf18c45bef32cf8e7c1c919a4324be67",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/gospel-f296b4fffc327f3b6a61c0502247c59ddf18c45bef32cf8e7c1c919a4324be67.wav",
+        "generated_at": "2026-01-07T21:06:25.330745Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "homily",
+      "type": "homily",
+      "title": "Homilía",
+      "source_url": "generated_by_gemini",
+      "text": "Hermanos y hermanas, el Evangelio de hoy, según San Mateo, nos presenta el inicio del ministerio público de Jesús. Nos dice que, al enterarse del arresto de Juan el Bautista, Jesús se retira a Galilea, estableciéndose en Cafarnaún. Este no es un simple cambio de lugar, sino el cumplimiento de una antigua profecía de Isaías: 'El pueblo que habitaba en tinieblas vio una luz grande; a los que habitaban en tierra y sombras de muerte, una luz les brilló'. ¡Qué hermosa imagen! Jesús es esa luz que disipa las sombras de nuestra existencia.\n\nDesde ese momento, Jesús comienza a predicar con un mensaje claro y urgente: 'Convertíos, porque está cerca el reino de los cielos'. La conversión no es solo un cambio superficial, sino una transformación profunda del corazón, un giro hacia Dios, una apertura a su reino que ya está entre nosotros. Es reconocer que Dios es el centro de nuestra vida y que sus caminos son caminos de vida plena.\n\nY no solo predica, sino que Jesús recorre toda Galilea enseñando en las sinagogas, proclamando el evangelio del reino y curando toda enfermedad y toda dolencia. Su fama se extiende, y multitudes lo siguen, buscando esa luz, esa sanación, esa esperanza. Jesús no solo habla del Reino, lo hace presente con sus obras de amor y misericordia.\n\nLa primera lectura de San Juan complementa maravillosamente este mensaje. Nos recuerda que 'cuanto pidamos lo recibimos de él, porque guardamos sus mandamientos y hacemos lo que le agrada'. Y el mandamiento central es creer en Jesucristo y amarnos unos a otros. Cuando vivimos así, 'quien guarda sus mandamientos permanece en Dios, y Dios en él'. ¡Qué promesa tan grande! Dios habita en nosotros por su Espíritu.\n\nSan Juan también nos advierte sobre los 'falsos profetas' y la necesidad de discernir los espíritus. En un mundo lleno de voces y mensajes, es crucial saber escuchar la voz de Dios. ¿Cómo? Reconociendo a Jesús, el Verbo hecho carne. Y nos da una certeza poderosa: 'Vosotros, hijos míos, sois de Dios y lo habéis vencido. Pues el que está en vosotros es más que el que está en el mundo'. Esta verdad nos da fuerza y confianza para enfrentar los desafíos, para ser portadores de esa luz de Cristo en nuestro propio entorno.\n\nHermanos, la luz de Cristo ha brillado para nosotros. Él nos llama a la conversión, a vivir el amor y la fe, a discernir su presencia en nuestras vidas. Que hoy, al escuchar su Palabra, renovemos nuestro compromiso de ser esa luz para los demás, de llevar la esperanza y la sanación de Cristo a un mundo que tanto lo necesita. Que el Espíritu que habita en nosotros nos guíe siempre en este camino.",
+      "text_hash": "64d2d380294785623797fa5dafa44097858b83df1d7624220eff3b2590ca2181",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "4e2645090cfc5d23943ba016ee3d93e06c0d7d240b9903afd31d936bae176433",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/homily-4e2645090cfc5d23943ba016ee3d93e06c0d7d240b9903afd31d936bae176433.wav",
+        "generated_at": "2026-01-07T21:07:43.624868Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "confiteor",
+      "type": "prayer",
+      "title": "Yo confieso",
+      "source_url": "template:catholic_prayer:confiteor",
+      "text": "Yo confieso ante Dios todopoderoso y ante ustedes, hermanos, que he pecado mucho de pensamiento, palabra, obra y omisión. Por mi culpa, por mi culpa, por mi gran culpa. Por eso ruego a Santa María, siempre Virgen, a los ángeles, a los santos y a ustedes, hermanos, que intercedan por mí ante Dios, nuestro Señor.",
+      "text_hash": "1261fee96a08cd9ecd50854ed8932366d779b445bd0df4d0cb11ba424b3ee3b9",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "0e29f100c21bdefd5e4258b44d4beddf7ce59a5552a23fc8cdb8aa2c14c7cbda",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/confiteor-0e29f100c21bdefd5e4258b44d4beddf7ce59a5552a23fc8cdb8aa2c14c7cbda.wav",
+        "generated_at": "2026-01-07T21:08:12.147606Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "creed",
+      "type": "prayer",
+      "title": "Credo",
+      "source_url": "template:catholic_prayer:creed",
+      "text": "Creo en Dios, Padre todopoderoso, creador del cielo y de la tierra. Creo en Jesucristo, su único Hijo, nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de Santa María Virgen; padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado; descendió a los infiernos; al tercer día resucitó de entre los muertos; subió a los cielos y está sentado a la derecha de Dios, Padre todopoderoso. Desde allí ha de venir a juzgar a vivos y muertos. Creo en el Espíritu Santo, la santa Iglesia católica, la comunión de los santos, el perdón de los pecados, la resurrección de la carne y la vida eterna. Amén.",
+      "text_hash": "72ec0bee9bc6448e6503024cad04e1c4d16936d0b65f637a7f566b851dd25ced",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "b9e2df3bb58e3a1261432a39fa3b9f21e63406b72c9bf0d329a7a46507d4e667",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/creed-b9e2df3bb58e3a1261432a39fa3b9f21e63406b72c9bf0d329a7a46507d4e667.wav",
+        "generated_at": "2026-01-07T21:08:33.075319Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "lords_prayer",
+      "type": "prayer",
+      "title": "Padre nuestro",
+      "source_url": "template:catholic_prayer:lords_prayer",
+      "text": "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.",
+      "text_hash": "a228333f302408fbe28e60961ad555e9a6543b1608ddcdc6f2e0a91ce47c42d7",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "6163b2777e29186c4a11698486cb0cb75fd47626b01a4b2a7f9cf5c1d7a9cd7a",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/lords_prayer-6163b2777e29186c4a11698486cb0cb75fd47626b01a4b2a7f9cf5c1d7a9cd7a.wav",
+        "generated_at": "2026-01-07T21:08:45.615430Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "final_reflection",
+      "type": "speech",
+      "title": "Reflexión final",
+      "source_url": "generated_by_gemini",
+      "text": "Queridos hermanos, hoy hemos sido invitados a la luz de Cristo, a su llamado a la conversión y a la certeza de que Dios habita en nosotros. Llevemos esta luz a nuestros hogares, a nuestros trabajos, a cada persona que encontremos. Seamos conscientes de que el Espíritu de Dios nos acompaña y nos da la fuerza para amar y para discernir la verdad. Que nuestra fe en Jesús se manifieste en obras de amor y servicio, haciendo presente el Reino de Dios en nuestro día a día. Que la luz que hemos recibido nos impulse a ser testigos valientes de su amor.",
+      "text_hash": "9d64467a68def3d137be09cfe774eee8d9772f2308706220de87dd73ff1c7aad",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "ca2c248b4703459fab42a30cf89a76c94da8fa7150c59adbc154e90f6149cdf2",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/final_reflection-ca2c248b4703459fab42a30cf89a76c94da8fa7150c59adbc154e90f6149cdf2.wav",
+        "generated_at": "2026-01-07T21:09:36.393418Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    },
+    {
+      "id": "closing",
+      "type": "speech",
+      "title": "Cierre",
+      "source_url": "generated_by_gemini",
+      "text": "Que la gracia de nuestro Señor Jesucristo, el amor del Padre y la comunión del Espíritu Santo estén siempre con todos ustedes. Agradezco de corazón su participación activa en esta Misa Virtual, un espacio donde nos unimos como comunidad de fe. Que el Señor los bendiga y los guarde en su camino, fortaleciéndolos con su amor y su paz. Vayan en paz, y que la luz de Cristo los ilumine y los guíe siempre. ¡Hasta la próxima, si Dios quiere!",
+      "text_hash": "602021d9ccaa2b0cac4db0d34387ee15a30037912c8e855676eec638914a5994",
+      "audio": {
+        "provider": "gemini-tts",
+        "model": "gemini-2.5-flash-preview-tts",
+        "voice_name": "Kore",
+        "role": "PRIEST",
+        "style_profile_id": "priest_es_co_v1",
+        "audio_hash": "cc1db0834772d804ef24da4c0845a060003550a5b5ef971e5e74e32e0e3bf8f5",
+        "mime_type": "audio/wav",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "path": "data/assets/audio/priest_es_co_v1/Kore/closing-cc1db0834772d804ef24da4c0845a060003550a5b5ef971e5e74e32e0e3bf8f5.wav",
+        "generated_at": "2026-01-07T21:09:51.639777Z"
+      },
+      "premium": {
+        "video": null,
+        "video_hash": null
+      }
+    }
+  ],
+  "templates": {
+    "prayers": {
+      "source": "data/templates/prayers_es.json",
+      "included_ids": [
+        "confiteor",
+        "creed",
+        "lords_prayer"
+      ]
+    }
+  },
+  "generated_parts": {
+    "gemini": {
+      "model": "gemini-2.5-flash",
+      "included_ids": [
+        "welcome",
+        "homily",
+        "final_reflection",
+        "closing"
+      ]
+    }
+  },
+  "audio_generation": {
+    "last_run_at": "2026-01-07T21:09:51.639793Z",
+    "provider": "gemini-tts",
+    "model": "gemini-2.5-flash-preview-tts",
+    "style_profile_id": "priest_es_co_v1",
+    "voices": {
+      "PRIEST": "Kore",
+      "LECTOR": "Kore"
+    },
+    "created": 9,
+    "reused": 1
+  }
+}
