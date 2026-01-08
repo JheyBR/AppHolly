@@ -189,9 +189,22 @@ html = """
     <audio id="player" controls style="width: 100%;"></audio>
 
     <details style="margin-top: 14px;">
-      <summary style="cursor:pointer; opacity:.9; font-weight:700;">Ver texto</summary>
-      <div id="text" style="margin-top: 10px; line-height: 1.5; opacity:.95;"></div>
-    </details>
+      <summary style="cursor:pointer; opacity:.9; font-weight:700;">
+        Ver texto
+      </summary>
+      
+      <div
+        id="text"
+        style="
+          margin-top: 12px;
+          line-height: 1.6;
+          opacity: .97;
+          max-height: 260px;
+          overflow-y: auto;
+          padding-right: 10px;
+        "
+      ></div>
+</details>
   </div>
 </div>
 
