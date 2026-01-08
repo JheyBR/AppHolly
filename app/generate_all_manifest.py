@@ -6,6 +6,10 @@ from DownloadText import generate_manifest_from_dominicos
 from enrich_manifest_with_gemini import gemini_generate_main
 from add_prayers_to_manifest import upsert_prayers_into_manifest
 from generate_tts import generate_tts_for_manifest
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 MANIFESTS_DIR = Path("data/manifests")
 TEMPLATES_PRAYERS = Path("data/templates/prayers_es.json")

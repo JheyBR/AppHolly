@@ -22,8 +22,12 @@ from shutil import copyfile
 
 import requests
 from requests.exceptions import HTTPError, Timeout, ConnectionError
+from dotenv import load_dotenv
+import os
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY", "AIzaSyBQP-L6kpJUQOoKSOeIJFozEnUUJGMBX38")
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 GEMINI_TTS_MODEL = os.getenv("GEMINI_TTS_MODEL", "gemini-2.5-flash-preview-tts")
 
 VOICE_PRIEST = os.getenv("GEMINI_TTS_VOICE_PRIEST", "Charon")

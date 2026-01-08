@@ -4,6 +4,10 @@ from pathlib import Path
 from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as components
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 MANIFESTS_DIR = Path("data/manifests")

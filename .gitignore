@@ -48,15 +48,15 @@ temp/
 ######################################
 
 # Audios generados por TTS (Gemini / futuros)
-data/assets/audio/
-data/assets/video/
+app/data/assets/audio/
+app/data/assets/video/
 
 # Manifests diarios (se regeneran)
-data/manifests/manifest-*.json
+app/data/manifests/manifest-*.json
 
 # PDFs descargados / raw data
-data/raw/
-data/raw/**/*.pdf
+app/data/raw/
+app/data/raw/**/*.pdf
 
 ######################################
 # Backups / copias accidentales

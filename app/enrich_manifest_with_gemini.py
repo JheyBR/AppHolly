@@ -4,6 +4,10 @@ import re
 import hashlib
 import requests
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # -----------------------------
 # Utilidades
@@ -27,7 +31,7 @@ def save_manifest(path: Path, manifest: dict) -> None:
 # Gemini
 # -----------------------------
 def gemini_generate_liturgy_parts(readings: dict) -> list[dict]:
-    api_key = os.getenv("GOOGLE_API_KEY", "AIzaSyBQP-L6kpJUQOoKSOeIJFozEnUUJGMBX38")
+    api_key = os.getenv("GOOGLE_API_KEY")
     model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
     if not api_key:
         raise RuntimeError("Falta GOOGLE_API_KEY en variables de entorno")
