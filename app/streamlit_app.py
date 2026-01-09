@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, date
 from google.auth import impersonated_credentials
 from dotenv import load_dotenv
 from google.cloud import storage
+from typing import Optional
 
 load_dotenv()
 
@@ -187,7 +188,7 @@ def _get_impersonated_storage_creds(target_sa_email: str, lifetime_seconds: int 
         lifetime=lifetime_seconds,
     )
 
-def signed_gcs_url(bucket: str, blob: str, minutes: int | None = None) -> str:
+def signed_gcs_url(bucket: str, blob: str, minutes: Optional[int] = None) -> str:
     """
     Genera Signed URL V4 para un objeto en GCS.
     Toma el Service Account firmante desde SIGNER_SA_EMAIL.
