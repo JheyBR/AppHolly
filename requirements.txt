@@ -1,0 +1,18 @@
+# ==========================
+# Missa - Requirements
+# ==========================
+
+# HTTP & APIs
+requests
+
+# Streamlit FE
+streamlit
+
+# Env vars (.env)
+python-dotenv
+
+# PDF processing
+pdfplumber
+
+# Google Cloud Storage
+google-cloud-storage

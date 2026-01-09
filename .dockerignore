@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+.DS_Store
+
+# artefactos locales
+app/data/manifests/
+app/data/assets/audio/
+app/data/raw/
+
+# caches/venv
+.venv/
+venv/
+.envrc
+.idea/
+.vscode/
