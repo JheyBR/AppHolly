@@ -3,7 +3,10 @@ import json
 import re
 import hashlib
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+
+BASE_DIR = Path(__file__).resolve().parent  # /app/app
+DEFAULT_TEMPLATES_PATH = BASE_DIR / "data" / "templates" / "prayers_es.json"
 
 ORDER = [
     "welcome",
@@ -52,8 +55,16 @@ def template_to_manifest_section(tpl: Dict[str, Any]) -> Dict[str, Any]:
 
 def upsert_prayers_into_manifest(
     manifest: Dict[str, Any],
-    prayers_templates_path: Path,
+    prayers_templates_path: Optional[Path] = None,
 ) -> Dict[str, Any]:
+    
+    if prayers_templates_path is None:
+        prayers_templates_path = DEFAULT_TEMPLATES_PATH
+    else:
+        prayers_templates_path = Path(prayers_templates_path)
+        if not prayers_templates_path.is_absolute():
+            prayers_templates_path = (BASE_DIR / prayers_templates_path).resolve()
+
     templates = load_prayers_templates(prayers_templates_path)
 
     required_ids = ["confiteor", "creed", "lords_prayer"]

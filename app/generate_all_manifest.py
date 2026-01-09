@@ -16,6 +16,34 @@ TEMPLATES_PRAYERS = Path("data/templates/prayers_es.json")
 VARIABLE_GEMINI_IDS = {"welcome", "homily", "final_reflection", "closing"}
 PRAYERS_IDS = {"confiteor", "creed", "lords_prayer"}
 
+def maybe_upload_outputs(date_iso: str):
+    storage_mode = os.getenv("STORAGE_MODE", "local").lower()
+    if storage_mode not in ("gcs", "both"):
+        return
+
+    bucket = os.environ["GCS_BUCKET"]
+    prefix = os.getenv("GCS_PREFIX", "missa").strip("/")
+
+    # Ajusta rutas según tu proyecto real:
+    manifests_dir = Path("data/manifests")
+    audio_dir = Path("data/assets/audio/by-date") / date_iso
+    raw_dir = Path("data/raw") / date_iso  # si aplica
+
+    from storage_gcs import upload_file, upload_dir
+
+    # 1) Manifest del día
+    manifest_path = manifests_dir / f"manifest-{date_iso}.json"
+    if manifest_path.exists():
+        upload_file(bucket, manifest_path, f"{prefix}/manifests/{date_iso}/{manifest_path.name}")
+
+    # 2) Audios del día
+    if audio_dir.exists():
+        upload_dir(bucket, audio_dir, f"{prefix}/audio/{date_iso}")
+
+    # 3) Raw opcional
+    if raw_dir.exists():
+        upload_dir(bucket, raw_dir, f"{prefix}/raw/{date_iso}")
+
 
 def manifest_path_for_today() -> Path:
     iso = date.today().strftime("%Y-%m-%d")
@@ -147,6 +175,7 @@ def generate_tts():
         raise FileNotFoundError("No encontré manifests en data/manifests.")
 
     generate_tts_for_manifest(files[0])
+
 async def main():
     mp = manifest_path_for_today()
     ensure_dominicos_manifest(mp)
@@ -155,6 +184,9 @@ async def main():
     ensure_prayers(mp)
     ensure_gemini_sections(mp)
     ensure_tts(mp)
+    # Subir outputs a GCS (si STORAGE_MODE=gcs o both)
+    date_iso = mp.stem.replace("manifest-", "")  # manifest-YYYY-MM-DD -> YYYY-MM-DD
+    maybe_upload_outputs(date_iso)
    
 if __name__ == "__main__":
     asyncio.run(main())  
